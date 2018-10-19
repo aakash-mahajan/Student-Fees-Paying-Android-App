@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_DedLine = "DedLine";
 
     private static final String Col_Id = "Id";
+    private static final String Col_StudentName = "StudentName";
     private static final String Col_Tution_Fees = "TutionFees";
     private static final String Col_Stp_Fees = "StpFees";
     private static final String Col_ExtraActivity_Fees = "ExtraActivityFees";
@@ -43,8 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_User + "(" + Col_Id + " TEXT PRIMARY KEY,"
             + Col_Password + " TEXT" + ")";
 
-    private static final String CREATE_TABLE_FEES = "CREATE TABLE " + TABLE_Fees
-            + "(" + Col_Id + " TEXT," + Col_Tution_Fees + " TEXT,"
+    private static final String CREATE_TABLE_FEES = "CREATE TABLE " + TABLE_Fees + "(" + Col_Id + " TEXT," + Col_StudentName + " TEXT," + Col_Tution_Fees + " TEXT,"
             + Col_Stp_Fees + " TEXT," + Col_ExtraActivity_Fees + " TEXT," + Col_Hostel_Fees + " TEXT,"+ Col_Total_Fees + " TEXT,FOREIGN KEY ("+ Col_Id
             + ") REFERENCES " + TABLE_Fees + "("+ Col_Id +")" + ")";
 
@@ -72,10 +72,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertDataIntoFees(String id,String tutionfees,String stpfees,String extraactivityfees,String hostelfees,String totalfees) {
+    public void insertDataIntoFees(String id,String name,String tutionfees,String stpfees,String extraactivityfees,String hostelfees,String totalfees) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Col_Id,id);
+        contentValues.put(Col_StudentName,name);
         contentValues.put(Col_Tution_Fees,tutionfees);
         contentValues.put(Col_Stp_Fees,stpfees);
         contentValues.put(Col_ExtraActivity_Fees,extraactivityfees);
@@ -165,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if(c.moveToFirst()){
             do{
-                Student student =new Student(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5));
+                Student student =new Student(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6));
                 studentFeesDetails.add(student);
             }while(c.moveToNext());
         }

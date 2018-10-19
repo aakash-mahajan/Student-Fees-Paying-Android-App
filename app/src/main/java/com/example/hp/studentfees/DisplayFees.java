@@ -33,7 +33,7 @@ public class DisplayFees extends Activity {
     TextView ExtraActivityFees;
     TextView HostelFees;
     TextView Id;
-    TextView TotalFees,FeesStatus;
+    TextView TotalFees,FeesStatus,StudentName;
     Button buttonbuy,button1;
     String key,id;
 
@@ -65,6 +65,10 @@ public class DisplayFees extends Activity {
         button1 = (Button)findViewById(R.id.calculatefee);
         buttonbuy = (Button)findViewById(R.id.buttonBuy);
         FeesStatus = (TextView)findViewById(R.id.textViewStatus);
+        StudentName = (TextView)findViewById(R.id.StudentName_tv);
+
+
+
 
         showFees=new ArrayList<>();
         getStatus=new ArrayList<>();
@@ -76,9 +80,9 @@ public class DisplayFees extends Activity {
 
                 showFees = mydb.getFees(key);
 
-                getStatus = mydb.getStatus(key);
-
                 getDate = mydb.getDedLine(key);
+
+                getStatus = mydb.getStatus(key);
 
                 ded_line = getDate.get(0).getCheckDate();
                 MobileNo = "+91"+getDate.get(0).getMobileNo();
@@ -92,6 +96,11 @@ public class DisplayFees extends Activity {
                 ExtraActivityFees.setText(showFees.get(0).getExtraActivity_Fees());
                 HostelFees.setText(showFees.get(0).getHostel_Fees());
                 TotalFees.setText(showFees.get(0).getTotal_Fees());
+
+                StudentName.setText(showFees.get(0).getName());
+
+                Toast.makeText(DisplayFees.this,showFees.get(0).getName(),Toast.LENGTH_SHORT).show();
+
 
                 id = getStatus.get(0).getId();
                 String status = getStatus.get(0).getStatus();

@@ -2,22 +2,34 @@ package com.example.hp.studentfees;
 
 public class Student {
     String id;
+    String Name;
     String Tution_Fees;
     String STP_Fees;
     String ExtraActivity_Fees;
     String Hostel_Fees;
     String Total_Fees;
 
+
+
     public Student(){
     }
 
-    public Student(String id,String Tution_Fees,String STP_Fees,String ExtraActivity_Fees,String Hostel_Fees,String Total_Fees){
+    public Student(String id,String Name,String Tution_Fees,String STP_Fees,String ExtraActivity_Fees,String Hostel_Fees,String Total_Fees){
         this.id = id;
         this.Tution_Fees = Tution_Fees;
         this.STP_Fees = STP_Fees;
         this.ExtraActivity_Fees = ExtraActivity_Fees;
         this.Hostel_Fees = Hostel_Fees;
         this.Total_Fees = Total_Fees;
+        this.Name = Name;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 
     public String getId() {

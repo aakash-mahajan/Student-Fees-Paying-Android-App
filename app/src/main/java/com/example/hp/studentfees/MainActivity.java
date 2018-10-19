@@ -64,17 +64,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void InsertData() {
         myDb = new DatabaseHelper(this);
-        myDb.insertDataIntoFees("1", "70000", "3000", "2000", "40000","115000");
-        myDb.insertDataIntoFees("2", "70000", "2500", "1500", "35000","109500");
-        myDb.insertDataIntoFees("3", "70000", "2000", "1000", "30000","103000");
-        myDb.insertDataIntoFees("4", "70000", "1500", "500", "25000","97000");
+        myDb.insertDataIntoFees("1","Aakash Mahajan" ,"70000", "3000", "2000", "0","75000");
+        myDb.insertDataIntoFees("2","Akshay Mahajan", "70000", "2500", "1500", "0","74500");
+        myDb.insertDataIntoFees("3","Amit Yadav", "70000", "2000", "1000", "30000","103000");
+        myDb.insertDataIntoFees("4","Gyan Prakash", "70000", "1500", "500", "25000","97000");
         myDb.insertDataIntoUser("1","123");
         myDb.insertDataIntoUser("2","456");
         myDb.insertDataIntoUser("3","789");
         myDb.insertDataIntoUser("4","159");
-        myDb.insertDataIntoFeesStatus("1","1");
+        myDb.insertDataIntoFeesStatus("1","0");
         myDb.insertDataIntoFeesStatus("2","0");
-        myDb.insertDataIntoFeesStatus("3","1");
+        myDb.insertDataIntoFeesStatus("3","0");
         myDb.insertDataIntoFeesStatus("4","0");
         myDb.insertDataIntoFeeDedLine("1","15-10-2018","9823710556");
         myDb.insertDataIntoFeeDedLine("2","16-10-2018","8390043027");
