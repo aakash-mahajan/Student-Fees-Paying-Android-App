@@ -3,15 +3,17 @@ package com.example.hp.studentfees;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.PendingIntent;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.telephony.SmsManager;
-import android.view.Menu;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,7 +27,7 @@ import java.util.Locale;
 
 public class DisplayFees extends Activity {
 
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 4;
 
     DatabaseHelper mydb;
     TextView TutionFees;
@@ -33,7 +35,7 @@ public class DisplayFees extends Activity {
     TextView ExtraActivityFees;
     TextView HostelFees;
     TextView Id;
-    TextView TotalFees,FeesStatus,StudentName;
+    TextView TotalFees,StudentName;
     Button buttonbuy,button1;
     String key,id;
 
@@ -46,12 +48,13 @@ public class DisplayFees extends Activity {
 
     String curr_date,ded_line,MobileNo,msg;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_fees);
 
-        mydb = new DatabaseHelper(this);
+        mydb = new DatabaseHelper(DisplayFees.this);
 
         Intent intent = getIntent();
         key = intent.getStringExtra("key");
@@ -64,7 +67,6 @@ public class DisplayFees extends Activity {
         TotalFees = (TextView)findViewById(R.id.totalfees_tv);
         button1 = (Button)findViewById(R.id.calculatefee);
         buttonbuy = (Button)findViewById(R.id.buttonBuy);
-        FeesStatus = (TextView)findViewById(R.id.textViewStatus);
         StudentName = (TextView)findViewById(R.id.StudentName_tv);
 
 
@@ -99,21 +101,42 @@ public class DisplayFees extends Activity {
 
                 StudentName.setText(showFees.get(0).getName());
 
-                Toast.makeText(DisplayFees.this,showFees.get(0).getName(),Toast.LENGTH_SHORT).show();
-
 
                 id = getStatus.get(0).getId();
                 String status = getStatus.get(0).getStatus();
 
 
                if(status.equals("1")) {
-                   FeesStatus.setText("!!!!FEES PAID!!!!");
+                   AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayFees.this);
+                   alertBuilder.setTitle("FEES STATUS");
+                   alertBuilder.setMessage("Student Name: " + showFees.get(0).getName() + "\n" +
+                           "Fees Status: Paid");
+                   alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+                           dialogInterface.dismiss();
+                       }
+                   });
+                   AlertDialog alertDialog = alertBuilder.create();
+                   alertDialog.show();
                    buttonbuy.setEnabled(false);
                    msg = "Fees paid successfully";
                    send();
                }
                 else
                {
+                   AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayFees.this);
+                   alertBuilder.setTitle("FEES STATUS");
+                   alertBuilder.setMessage("Student Name: " + showFees.get(0).getName() + "\n" +
+                           "Fees Status: Due");
+                   alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+                           dialogInterface.dismiss();
+                       }
+                   });
+                   AlertDialog alertDialog = alertBuilder.create();
+                   alertDialog.show();
                    if ( temp < 0 )
                    {
                        msg = "Your fees is pending complete it before "+ded_line+" otherwise you may not sit in your final exam";
@@ -129,7 +152,6 @@ public class DisplayFees extends Activity {
                        msg = "Today is the last day to pay your fess otherwise you may not sit in your final exam";
                        send();
                    }
-                    FeesStatus.setText("!!!!FEES DUE!!!!");
                }
             }
         });
@@ -139,7 +161,7 @@ public class DisplayFees extends Activity {
             @Override
             public void onClick(View view) {
 
-                myIntent = new Intent(DisplayFees.this,Payment.class);
+               myIntent = new Intent(DisplayFees.this,Payment.class);
                 myIntent.putExtra("key", id);
                 DisplayFees.this.startActivity(myIntent);
             }

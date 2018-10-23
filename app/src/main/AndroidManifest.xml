@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hp.studentfees">
 
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".DisplayFees" />
         <activity android:name=".Payment" />
-        <activity android:name=".DonePayment"></activity>
+        <activity android:name=".DonePayment" />
+        <activity android:name=".PaymentDetails"></activity>
     </application>
 
 </manifest>
